@@ -2,31 +2,26 @@ package test
 
 import (
 	"fmt"
-	"github.com/gruntwork-io/terratest/modules/terraform"
 	"testing"
+	"time"
 )
 
-func TestMain(m *testing.M) {
+func init() {
 	fmt.Println("start init")
-
-	t = *testing.T
-
-	terraformOptions := &terraform.Options{TerraformDir: ".."}
-	defer terraform.Destroy(testing.TestingT, terraformOptions)
-	terraform.InitAndApplyAndIdempotent(t, terraformOptions)
-
-	terraform.
-		fmt.Println("end init")
+	time.Sleep(8 * time.Second)
+	fmt.Println("end init")
 }
 
 func TestOne(t *testing.T) {
 	t.Parallel()
 
 	fmt.Println("in test 1")
+	t.Log("in test 1")
 }
 
 func TestTwo(t *testing.T) {
 	t.Parallel()
 
-	fmt.Println("in test 2!")
+	fmt.Println("in test 2")
+	t.Log("in test 2!")
 }
