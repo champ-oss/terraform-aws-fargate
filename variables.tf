@@ -10,12 +10,6 @@ variable "tags" {
   default     = {}
 }
 
-variable "domain" {
-  description = "Domain available for routing through the load balancer"
-  type        = string
-  default     = "*"
-}
-
 variable "wait_for_steady_state" {
   description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service#wait_for_steady_state"
   type        = bool
@@ -26,12 +20,6 @@ variable "port" {
   description = "Port number of the service running inside your container"
   type        = number
   default     = 80
-}
-
-variable "listener_port" {
-  description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/lb_listener#port"
-  type        = number
-  default     = 443
 }
 
 variable "security_groups" {
@@ -83,7 +71,7 @@ variable "secrets" {
 }
 
 #################################################
-# Healthcheck
+# Load Balancer / Healthcheck
 #################################################
 
 variable "health_check_path" {
@@ -131,6 +119,24 @@ variable "timeout" {
   description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group#timeout"
   default     = 5
   type        = number
+}
+
+variable "domain" {
+  description = "Domain available for routing through the load balancer"
+  type        = string
+  default     = "*"
+}
+
+variable "host" {
+  description = "Additional host used for routing traffic"
+  type        = string
+  default     = null
+}
+
+variable "listener_port" {
+  description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/lb_listener#port"
+  type        = number
+  default     = 443
 }
 
 #################################################

@@ -33,7 +33,7 @@ resource "aws_lb_listener_rule" "this" {
 
   condition {
     host_header {
-      values = ["${var.name}.${var.domain}", "${local.id}.${var.domain}"]
+      values = ["${var.name}.${var.domain}", "${local.id}.${var.domain}", "${var.host}.${var.domain}"]
     }
   }
 }
