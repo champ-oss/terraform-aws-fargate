@@ -1,11 +1,13 @@
 resource "aws_ecs_cluster" "this" {
-  count = 1
-  name  = var.name
+  name = local.id
+
+  lifecycle {
+    ignore_changes = [name]
+  }
 }
 
 resource "aws_ecs_cluster_capacity_providers" "this" {
-  count              = 1
-  cluster_name       = aws_ecs_cluster.this[0].name
+  cluster_name       = aws_ecs_cluster.this.name
   capacity_providers = ["FARGATE"]
 
   default_capacity_provider_strategy {
