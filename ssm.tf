@@ -3,7 +3,7 @@ data "aws_kms_secrets" "this" {
 
   secret {
     name    = each.key
-    payload = each.values
+    payload = each.value
   }
 }
 

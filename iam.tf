@@ -43,37 +43,37 @@ resource "aws_iam_role_policy_attachment" "ssmmessages" {
   role       = aws_iam_role.this.name
 }
 
-resource "aws_iam_role_policy_attachment" "AmazonECSTaskExecutionRolePolicy" {
+resource "aws_iam_role_policy_attachment" "ecs" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
   role       = aws_iam_role.this.name
 }
 
-resource "aws_iam_role_policy_attachment" "AmazonSSMReadOnlyAccess" {
+resource "aws_iam_role_policy_attachment" "ssm" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"
   role       = aws_iam_role.this.name
 }
 
-resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly" {
+resource "aws_iam_role_policy_attachment" "ecr" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
   role       = aws_iam_role.this.name
 }
 
-resource "aws_iam_role_policy_attachment" "AmazonSESFullAccess" {
+resource "aws_iam_role_policy_attachment" "ses" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonSESFullAccess"
   role       = aws_iam_role.this.name
 }
 
-resource "aws_iam_role_policy_attachment" "AmazonS3FullAccess" {
+resource "aws_iam_role_policy_attachment" "s3" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
   role       = aws_iam_role.this.name
 }
 
-resource "aws_iam_role_policy_attachment" "AWSLambda_FullAccess" {
+resource "aws_iam_role_policy_attachment" "lambda" {
   policy_arn = "arn:aws:iam::aws:policy/AWSLambda_FullAccess"
   role       = aws_iam_role.this.name
 }
 
-resource "aws_iam_role_policy_attachment" "AmazonTextractFullAccess" {
+resource "aws_iam_role_policy_attachment" "textract" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonTextractFullAccess"
   role       = aws_iam_role.this.name
 }
