@@ -19,30 +19,13 @@ variable "wait_for_steady_state" {
 variable "port" {
   description = "Port number of the service running inside your container"
   type        = number
-  default     = 8080
+  default     = 80
 }
 
-variable "byte_length" {
-  description = "https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id#byte_length"
+variable "listener_port" {
+  description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/lb_listener#port"
   type        = number
-  default     = 16
-}
-
-#variable "cluster" {
-#  description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service#cluster"
-#  type        = string
-#}
-
-variable "healthcheck" {
-  description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group#path"
-  type        = string
-  default     = "/"
-}
-
-variable "health_check_grace_period_seconds" {
-  description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service#health_check_grace_period_seconds"
-  default     = 30
-  type        = number
+  default     = 443
 }
 
 variable "security_groups" {
@@ -54,36 +37,7 @@ variable "security_groups" {
 variable "execution_role_arn" {
   description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_task_definition#execution_role_arn"
   type        = string
-  default     = ""
-}
-
-#variable "subnets" {
-#  description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service#subnets"
-#  type        = list(string)
-#}
-
-variable "listener_arn" {
-  description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener_rule#listener_arn"
-  type        = string
-  default     = ""
-}
-
-variable "dns_name" {
-  description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record#name"
-  type        = string
-  default     = ""
-}
-
-variable "enable_route53" {
-  description = "Create Route 53 record"
-  type        = bool
-  default     = true
-}
-
-variable "enable_load_balancer" {
-  description = "enable load balancer"
-  type        = bool
-  default     = true
+  default     = null
 }
 
 variable "enable_execute_command" {
@@ -91,29 +45,6 @@ variable "enable_execute_command" {
   type        = bool
   default     = false
 }
-
-variable "zone_id" {
-  description = "https://www.terraform.io/docs/providers/aws/r/route53_record.html#zone_id"
-  type        = string
-  default     = ""
-}
-
-variable "lb_dns_name" {
-  description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb#dns_name"
-  type        = string
-  default     = ""
-}
-
-variable "lb_zone_id" {
-  description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb#zone_id"
-  type        = string
-  default     = ""
-}
-
-#variable "vpc_id" {
-#  description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group#vpc_id"
-#  type        = string
-#}
 
 variable "image" {
   description = "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html#container_definition_image"
@@ -127,28 +58,10 @@ variable "cpu" {
   default     = 256
 }
 
-variable "matcher" {
-  description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group#matcher"
-  type        = string
-  default     = "200,301,302"
-}
-
 variable "memory" {
   description = "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-cpu-memory-error.html"
   type        = number
   default     = 512
-}
-
-variable "desired_count" {
-  description = "https://www.terraform.io/docs/providers/aws/r/ecs_service.html#desired_count"
-  type        = number
-  default     = null
-}
-
-variable "retention_in_days" {
-  description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group#retention_in_days"
-  type        = number
-  default     = 365
 }
 
 variable "environment" {
@@ -163,10 +76,26 @@ variable "secrets" {
   default     = {}
 }
 
-variable "kms_secrets" {
-  description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/kms_secrets"
-  type        = map(string)
-  default     = {}
+#################################################
+# Healthcheck
+#################################################
+
+variable "healthcheck" {
+  description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group#path"
+  type        = string
+  default     = "/"
+}
+
+variable "matcher" {
+  description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group#matcher"
+  type        = string
+  default     = "200,301,302"
+}
+
+variable "health_check_grace_period_seconds" {
+  description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service#health_check_grace_period_seconds"
+  default     = 30
+  type        = number
 }
 
 variable "deregistration_delay" {
@@ -198,29 +127,31 @@ variable "timeout" {
   type        = number
 }
 
-variable "enable_lambda_cw_alert" {
-  description = "enable lambda cloudwatch alert"
-  type        = bool
-  default     = false
-}
+#################################################
+# Logging
+#################################################
 
 variable "filter_pattern" {
   description = "https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html#extract-log-event-values"
   type        = string
-  default     = "ERROR"
+  default     = null
 }
 
 variable "slack_url" {
-  description = "slack url"
+  description = "Slack webhook used for CloudWatch log alerts"
   type        = string
-  default     = "https://hooks.slack.com/services/abc123"
+  default     = null
 }
 
-variable "alert_region" {
-  description = "region of cloudwatch alarm"
-  type        = string
-  default     = "us-east-2"
+variable "retention_in_days" {
+  description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group#retention_in_days"
+  type        = number
+  default     = 365
 }
+
+#################################################
+# Auto Scaling
+#################################################
 
 variable "max_capacity" {
   description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/appautoscaling_target#max_capacity"
@@ -237,7 +168,7 @@ variable "min_capacity" {
 variable "autoscaling_target_cpu" {
   description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/appautoscaling_policy#target_value"
   type        = number
-  default     = 75
+  default     = 70
 }
 
 variable "scale_in_cooldown" {
@@ -250,4 +181,32 @@ variable "scale_out_cooldown" {
   description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/appautoscaling_policy#scale_out_cooldown"
   type        = number
   default     = 60
+}
+
+#################################################
+# Data
+#################################################
+
+variable "vpc_tags" {
+  description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/vpc#tags"
+  type        = map(string)
+  default     = { type = "vega" }
+}
+
+variable "subnet_tags" {
+  description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnets#tags"
+  type        = map(string)
+  default     = { type = "vega-private" }
+}
+
+variable "sg_tags" {
+  description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/security_group#tags"
+  type        = map(string)
+  default     = { type = "vega" }
+}
+
+variable "lb_tags" {
+  description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/lb#tags"
+  type        = map(string)
+  default     = { type = "vega" }
 }
