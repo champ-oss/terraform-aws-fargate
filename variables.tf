@@ -10,6 +10,12 @@ variable "tags" {
   default     = {}
 }
 
+variable "domain" {
+  description = "Domain available for routing through the load balancer"
+  type        = string
+  default     = "*"
+}
+
 variable "wait_for_steady_state" {
   description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service#wait_for_steady_state"
   type        = bool
@@ -80,7 +86,7 @@ variable "secrets" {
 # Healthcheck
 #################################################
 
-variable "healthcheck" {
+variable "health_check_path" {
   description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group#path"
   type        = string
   default     = "/"
