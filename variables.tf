@@ -22,12 +22,6 @@ variable "port" {
   default     = 80
 }
 
-variable "security_groups" {
-  description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service#security_groups"
-  type        = list(string)
-  default     = []
-}
-
 variable "enable_execute_command" {
   description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service#enable_execute_command"
   type        = bool
@@ -72,7 +66,6 @@ variable "secrets" {
 
 #################################################
 # Load Balancer / Healthcheck
-#################################################
 
 variable "health_check_path" {
   description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group#path"
@@ -141,7 +134,6 @@ variable "listener_port" {
 
 #################################################
 # Logging
-#################################################
 
 variable "filter_pattern" {
   description = "https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html#extract-log-event-values"
@@ -163,7 +155,6 @@ variable "retention_in_days" {
 
 #################################################
 # Auto Scaling
-#################################################
 
 variable "max_capacity" {
   description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/appautoscaling_target#max_capacity"
@@ -197,7 +188,6 @@ variable "scale_out_cooldown" {
 
 #################################################
 # Data
-#################################################
 
 variable "vpc_tags" {
   description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/vpc#tags"
