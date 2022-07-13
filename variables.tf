@@ -28,12 +28,6 @@ variable "security_groups" {
   default     = []
 }
 
-variable "execution_role_arn" {
-  description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_task_definition#execution_role_arn"
-  type        = string
-  default     = null
-}
-
 variable "enable_execute_command" {
   description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service#enable_execute_command"
   type        = bool
@@ -56,6 +50,12 @@ variable "memory" {
   description = "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-cpu-memory-error.html"
   type        = number
   default     = 512
+}
+
+variable "assign_public_ip" {
+  description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service#assign_public_ip"
+  type        = bool
+  default     = false
 }
 
 variable "environment" {

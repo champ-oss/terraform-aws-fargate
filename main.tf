@@ -1,9 +1,11 @@
 locals {
-  id         = "${var.name == null ? local.image_name : var.name}-${random_string.this.result}"
-  tags       = merge(var.tags, { Name = local.id })
-  image_repo = replace(var.image, "/:.*/", "")
-  image_name = replace(local.image_repo, "/.*//", "")
-  vpc_id     = data.aws_vpc.this.id
+  id          = "${local.name}-${random_string.this.result}"
+  name        = var.name == null ? local.image_name : var.name
+  tags        = merge(var.tags, { Name = local.id })
+  image_repo  = replace(var.image, "/:.*/", "")
+  image_name  = replace(local.image_repo, "/.*//", "")
+  vpc_id      = data.aws_vpc.this.id
+  environment = merge(var.environment, { SECRETS_SHA = sha256(jsonencode(var.secrets)) })
 }
 
 resource "random_string" "this" {
