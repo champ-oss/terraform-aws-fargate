@@ -52,6 +52,12 @@ variable "assign_public_ip" {
   default     = false
 }
 
+variable "container_insights_enabled" {
+  description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_cluster#value"
+  type        = bool
+  default     = false
+}
+
 variable "environment" {
   description = "Map of configuration values to be converted into ECS native format"
   type        = map(string)
@@ -134,18 +140,6 @@ variable "listener_port" {
 
 #################################################
 # Logging
-
-variable "filter_pattern" {
-  description = "https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html#extract-log-event-values"
-  type        = string
-  default     = null
-}
-
-variable "slack_url" {
-  description = "Slack webhook used for CloudWatch log alerts"
-  type        = string
-  default     = null
-}
 
 variable "retention_in_days" {
   description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group#retention_in_days"

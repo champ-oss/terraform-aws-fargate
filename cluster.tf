@@ -1,6 +1,11 @@
 resource "aws_ecs_cluster" "this" {
   name = local.id
 
+  setting {
+    name  = "containerInsights"
+    value = var.container_insights_enabled ? "enabled" : "disabled"
+  }
+
   lifecycle {
     ignore_changes = [name]
   }

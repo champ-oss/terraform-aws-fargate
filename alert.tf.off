@@ -8,3 +8,15 @@ module "alert" {
   slack_url      = var.slack_url
   region         = data.aws_region.this.name
 }
+
+variable "filter_pattern" {
+  description = "https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html#extract-log-event-values"
+  type        = string
+  default     = null
+}
+
+variable "slack_url" {
+  description = "Slack webhook used for CloudWatch log alerts"
+  type        = string
+  default     = null
+}
