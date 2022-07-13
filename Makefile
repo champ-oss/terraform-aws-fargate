@@ -1,4 +1,5 @@
 test: init validate fmt lint
+	cd test && go test -v || cd ..
 
 init:
 	terraform init
