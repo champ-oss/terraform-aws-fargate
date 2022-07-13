@@ -168,7 +168,7 @@ variable "min_capacity" {
   default     = 1
 }
 
-variable "autoscaling_target_cpu" {
+variable "target_value" {
   description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/appautoscaling_policy#target_value"
   type        = number
   default     = 70
