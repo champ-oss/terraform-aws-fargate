@@ -73,6 +73,12 @@ variable "secrets" {
 #################################################
 # Load Balancer / Healthcheck
 
+variable "lb_enabled" {
+  description = "Attach Fargate task to load balancer"
+  type        = bool
+  default     = false
+}
+
 variable "health_check_path" {
   description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group#path"
   type        = string

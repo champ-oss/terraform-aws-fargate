@@ -15,11 +15,12 @@ resource "aws_security_group_rule" "egress" {
 }
 
 resource "aws_security_group_rule" "ingress" {
+  count                    = var.lb_enabled ? 1 : 0
   description              = "alb"
   type                     = "ingress"
   from_port                = var.port
   to_port                  = var.port
   protocol                 = "tcp"
   security_group_id        = aws_security_group.this.id
-  source_security_group_id = data.aws_security_group.this.id
+  source_security_group_id = data.aws_security_groups.this[0].ids[0]
 }
