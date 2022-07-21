@@ -41,7 +41,7 @@ resource "aws_ecs_service" "this" {
   cluster                           = aws_ecs_cluster.this.arn
   depends_on                        = [aws_lb_listener_rule.this]
   desired_count                     = var.min_capacity
-  health_check_grace_period_seconds = var.health_check_grace_period_seconds
+  health_check_grace_period_seconds = var.lb_enabled ? var.health_check_grace_period_seconds : null
   launch_type                       = "FARGATE"
   propagate_tags                    = "SERVICE"
   task_definition                   = aws_ecs_task_definition.this.arn
@@ -50,7 +50,7 @@ resource "aws_ecs_service" "this" {
   tags                              = local.tags
 
   network_configuration {
-    subnets          = data.aws_subnets.this.ids
+    subnets          = local.subnets
     security_groups  = [aws_security_group.this.id]
     assign_public_ip = var.assign_public_ip
   }

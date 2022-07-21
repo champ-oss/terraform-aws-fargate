@@ -49,7 +49,7 @@ variable "memory" {
 variable "assign_public_ip" {
   description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service#assign_public_ip"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "container_insights_enabled" {
