@@ -27,7 +27,7 @@ env:
 defaults:
   run:
     shell: bash
-    working-directory: test/src
+    working-directory: test
 
 jobs:
   list-tests:
@@ -82,7 +82,7 @@ jobs:
   module:
     runs-on: ubuntu-latest
     if: always()
-    needs: [run-test, check-tests]
+    needs: [ run-test, check-tests ]
     steps:
       - name: module
         working-directory: .
