@@ -11,8 +11,7 @@ fmt:
 	terraform fmt -recursive
 
 lint:
-	tflint --init
-	tflint
+	tflint || tflint --init && tflint
 
 apply:
 	terraform apply -auto-approve
