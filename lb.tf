@@ -38,4 +38,14 @@ resource "aws_lb_listener_rule" "this" {
       values = ["${var.name}.${var.domain}", "${local.id}.${var.domain}", "${var.host}.${var.domain}"]
     }
   }
+
+  dynamic "condition" {
+    for_each = var.source_ips != null ? [""] : []
+
+    content {
+      source_ip {
+        values = var.source_ips
+      }
+    }
+  }
 }

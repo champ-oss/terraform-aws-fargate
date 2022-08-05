@@ -79,6 +79,12 @@ variable "lb_enabled" {
   default     = false
 }
 
+variable "source_ips" {
+  description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener_rule#source_ip"
+  type        = list(any)
+  default     = null
+}
+
 variable "health_check_path" {
   description = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group#path"
   type        = string
