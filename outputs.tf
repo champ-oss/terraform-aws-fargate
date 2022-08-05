@@ -1,4 +1,4 @@
 output "id" {
-  description = "Name after being processed into a ranadom ID"
+  description = "Name after being processed into a random ID"
   value       = local.id
 }
