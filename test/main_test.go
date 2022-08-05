@@ -1,15 +1,19 @@
 package main
 
 import (
+	"io/ioutil"
 	"testing"
 )
 
 func TestOne(t *testing.T) {
 	t.Parallel()
-	t.Log("in test 1")
-}
+	files, err := ioutil.ReadDir("../examples")
 
-func TestTwo(t *testing.T) {
-	t.Parallel()
-	t.Log("in test 2!")
+	if err != nil {
+		t.Log(err)
+	}
+
+	for _, f := range files {
+		t.Log(f.Name())
+	}
 }
