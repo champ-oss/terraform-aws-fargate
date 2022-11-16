@@ -1,4 +1,4 @@
-name: test
+name: module
 
 on:
   workflow_dispatch:
