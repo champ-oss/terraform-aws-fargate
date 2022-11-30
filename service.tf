@@ -4,6 +4,7 @@ locals {
     environment  = [for key, value in local.environment : { name = key, value = value }]
     essential    = true
     image        = var.image
+    command      = var.command
     portMappings = [{ containerPort = var.port }]
 
     secrets = [

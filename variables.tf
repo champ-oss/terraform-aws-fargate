@@ -218,3 +218,9 @@ variable "lb_tags" {
   type        = map(string)
   default     = { type = "vega" }
 }
+
+variable "command" {
+  description = "optional command entrypoint for container task definition"
+  type        = list(string)
+  default     = null
+}
