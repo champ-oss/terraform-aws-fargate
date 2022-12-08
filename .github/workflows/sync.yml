@@ -21,7 +21,6 @@ jobs:
             .tflint.hcl
             .github/CODEOWNERS
             .github/dependabot.yml
-            .github/workflows/lint.yml
             .github/workflows/release.yml
             .github/workflows/sonar.yml
             .github/workflows/doc.yml
